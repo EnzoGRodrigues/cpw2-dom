@@ -3,6 +3,9 @@
  */
 function background(){
 
+    document.getElementById('body').style.backgroundColor = "#BECCC3";
+    console.log("pato");
+
     /**
      * Tarefa/Issue  1
      *
@@ -19,6 +22,13 @@ function background(){
  */
 function show(){
 
+    var nome = document.getElementById('fname').value;
+    var sobrenome = document.getElementById('lname').value;
+    var resultado = nome + " " + sobrenome;
+    document.getElementById('result').innerHTML = resultado;
+
+    console.log(resultado);
+
      /**
       * Issue  2
       *
@@ -33,8 +43,33 @@ function show(){
  */
 function search(){
 
-    var data = [{name: "Rodrigo"}, {name: "Ricardo"}, {name: "Fabio"}, {name: "Alex"}, {name: "Sílvia"}];
+    var data = [{ name: "Rodrigo" }, { name: "Ricardo" }, { name: "Fabio" }, { name: "Alex" }, { name: "Sílvia" }]
 
+    var nameInput = document.getElementById('name');
+     var searchDiv = document.getElementById('search');
+
+     nameInput.addEventListener('input', function () {
+         var searchText = nameInput.value.toLowerCase();
+         var filteredData = data.filter(function (person) {
+             return person.name.toLowerCase().startsWith(searchText);
+         });
+
+         displayResults(filteredData);
+     });
+
+     function displayResults(results) {
+         searchDiv.innerHTML = '';
+
+         if (results.length === 0) {
+             searchDiv.textContent = 'Nenhum resultado encontrado.';
+         } else {
+             results.forEach(function (person) {
+                 var personDiv = document.createElement('div');
+                 personDiv.textContent = person.name;
+                 searchDiv.appendChild(personDiv);
+             });
+         }
+     }
     /**
      * Issue 3
      *
